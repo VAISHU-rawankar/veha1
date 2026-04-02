@@ -1,0 +1,419 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f5f5f5}
+.wrap{display:grid;grid-template-columns:580px 1fr;gap:0;max-width:960px;margin:0 auto;align-items:start}
+.wire{background:#fff;border:1.5px solid #ccc}
+.annotations{padding:0 0 0 20px;display:flex;flex-direction:column}
+
+/* ANNOTATION CALLOUT */
+.ann{background:#fff;border:1.5px solid #ccc;border-radius:4px;padding:12px 14px;margin-bottom:0;position:relative}
+.ann-title{font-size:10px;font-weight:700;color:#222;margin-bottom:6px}
+.ann-item{font-size:9px;color:#555;line-height:1.5;display:flex;gap:5px;margin-bottom:3px}
+.ann-item:last-child{margin-bottom:0}
+.ann-item::before{content:"•";color:#999;flex-shrink:0}
+.ann-spacer{flex:1}
+
+/* DOTTED CONNECTOR */
+.connector{display:flex;align-items:center;height:100%;padding:0}
+
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1.5px solid #ccc}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-sq{width:28px;height:28px;background:#ddd;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#888}
+.logo-text{display:flex;flex-direction:column;gap:2px}
+.logo-l{height:4px;background:#ccc;border-radius:1px}
+.nav-links{display:flex;gap:6px}
+.nl{font-size:9px;padding:3px 8px;border:1px solid #ccc;border-radius:2px;color:#777}
+.nl-cta{font-size:9px;padding:3px 10px;background:#333;color:#fff;border-radius:2px}
+
+/* SECTION LABEL */
+.slabel{font-size:7px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#bbb;padding:5px 20px 3px;border-top:1px solid #e8e8e8;background:#fafafa;display:block}
+
+/* HERO */
+.hero{padding:28px 20px 24px;border-bottom:1.5px solid #ccc;display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:center}
+.hero-tag{font-size:8px;border:1px solid #ccc;display:inline-block;padding:2px 7px;border-radius:2px;color:#999;margin-bottom:10px}
+.hero-h{font-size:22px;font-weight:700;color:#111;line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:9px;color:#888;line-height:1.6;margin-bottom:14px}
+.hero-btns{display:flex;gap:8px}
+.btn-d{font-size:9px;padding:6px 14px;background:#222;color:#fff;border-radius:2px}
+.btn-o{font-size:9px;padding:6px 14px;border:1.5px solid #333;color:#333;border-radius:2px}
+.hero-img{background:#ebebeb;border:1.5px dashed #ccc;border-radius:3px;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.hero-img-circle{width:32px;height:32px;background:#d5d5d5;border-radius:50%}
+.ph-text{font-size:8px;color:#bbb;font-style:italic}
+
+/* MISSION */
+.mission{padding:20px;border-bottom:1.5px solid #ccc;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mc{display:flex;flex-direction:column;gap:5px}
+.mc-icon{width:22px;height:22px;background:#ddd;border-radius:50%}
+.mc-title{font-size:10px;font-weight:700;color:#222}
+.mc-body{font-size:8px;color:#999;line-height:1.5}
+
+/* SECTION CONTENT */
+.sec{padding:20px;border-bottom:1.5px solid #ccc}
+.sec-h{font-size:13px;font-weight:700;color:#111;margin-bottom:3px}
+.sec-s{font-size:8px;color:#999;margin-bottom:12px;line-height:1.5}
+
+/* CHARTS */
+.charts-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cbox{border:1.5px dashed #ccc;background:#f7f7f7;border-radius:2px;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:100px}
+.bars{display:flex;align-items:flex-end;gap:3px}
+.bar{width:11px;background:#ccc;border-radius:1px 1px 0 0}
+.bignum{font-size:20px;font-weight:700;color:#555}
+.bign-lbl{font-size:7px;color:#bbb;text-align:center;line-height:1.4}
+
+/* MUKTA */
+.mukta-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.flow-box{border:1.5px dashed #ccc;border-radius:2px;padding:12px;background:#f7f7f7}
+.flow-lbl{font-size:7px;font-weight:700;color:#bbb;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.flow-steps{display:flex;align-items:center;gap:2px}
+.fnum{width:24px;height:24px;border-radius:50%;border:1.5px solid #ccc;background:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#888;flex-shrink:0}
+.farr{font-size:9px;color:#ccc;flex:1;text-align:center}
+.fstep-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:5px}
+.flbl{font-size:7px;color:#bbb;text-align:center;line-height:1.4}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mcard{border:1.5px solid #ddd;border-radius:2px;padding:10px;text-align:center}
+.mnum{font-size:17px;font-weight:700;color:#333}
+.mlbl{font-size:7px;color:#bbb;margin-top:2px;line-height:1.4}
+.mline{height:2px;background:#eee;border-radius:1px;margin-top:6px}
+.mline-f{height:100%;background:#ccc;border-radius:1px}
+
+/* LOGOS */
+.logos{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+.logo-box{border:1.5px dashed #ccc;height:38px;background:#f7f7f7;border-radius:2px;display:flex;align-items:center;justify-content:center}
+.logo-lines{display:flex;flex-direction:column;gap:3px;align-items:center}
+.ll{height:3px;background:#d5d5d5;border-radius:1px}
+
+/* KNOWLEDGE */
+.know-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kc{border:1.5px solid #ddd;border-radius:2px;padding:10px}
+.kc-icon{width:20px;height:20px;background:#ddd;border-radius:50%;margin-bottom:6px}
+.kc-title{font-size:9px;font-weight:700;color:#333;margin-bottom:4px}
+.kc-lines{display:flex;flex-direction:column;gap:3px}
+.kline{height:2px;background:#eee;border-radius:1px}
+
+/* JOURNEY */
+.journey-steps{display:flex;align-items:flex-start;gap:0}
+.js{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
+.js-num{width:30px;height:30px;border-radius:50%;border:1.5px solid #bbb;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#888;background:#fff}
+.js-label{font-size:7px;color:#777;text-align:center;line-height:1.4;max-width:72px}
+.js-sub{font-size:7px;color:#bbb;text-align:center;line-height:1.3;max-width:72px}
+.js-arrow{font-size:10px;color:#ccc;padding-top:9px}
+
+/* CTA */
+.cta-sec{padding:32px 20px;border-bottom:1.5px solid #ccc;text-align:center;background:#fafafa;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cta-h{font-size:14px;font-weight:700;color:#111}
+.cta-sub{font-size:8px;color:#999;max-width:320px;line-height:1.6}
+.cta-btns{display:flex;gap:10px;margin-top:4px}
+
+/* FOOTER */
+.footer{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:0;border-top:1.5px solid #ccc}
+.fc{padding:14px}
+.fc-title{font-size:9px;font-weight:700;color:#333;margin-bottom:6px}
+.fc-links{display:flex;flex-direction:column;gap:4px}
+.fcl{height:3px;background:#eee;border-radius:1px}
+.footer-btm{padding:8px 14px;border-top:1px solid #e8e8e8;display:flex;justify-content:space-between}
+.fbtm-txt{font-size:7px;color:#bbb}
+.soc{display:flex;gap:4px}
+.sc{width:16px;height:16px;border:1px solid #ddd;border-radius:2px;background:#f5f5f5}
+
+/* DOTTED LINE */
+.dot-line{border-top:1.5px dashed #ccc;flex:1;margin:0 8px}
+</style>
+
+<div class="wrap">
+
+  <!-- ═══ WIREFRAME COLUMN ═══ -->
+  <div class="wire">
+
+    <!-- NAV -->
+    <div class="nav">
+      <div class="logo">
+        <div class="logo-sq">LOGO</div>
+        <div class="logo-text">
+          <div class="logo-l" style="width:50px"></div>
+          <div class="logo-l" style="width:34px;background:#ddd"></div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <div class="nl">Home</div><div class="nl">About</div><div class="nl">Project MUKTA</div><div class="nl">Partners</div><div class="nl-cta">Get Involved</div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <span class="slabel">Section 1 — Hero</span>
+    <div class="hero">
+      <div>
+        <div class="hero-tag">Public Health · Prevention</div>
+        <div class="hero-h">Headline About<br>VEHA's Mission<br>and Impact</div>
+        <div class="hero-sub">Brief, 1–2 line description of VEHA's focus and goals — concise and impactful.</div>
+        <div class="hero-btns"><div class="btn-d">Learn More</div><div class="btn-o">Contact Us</div></div>
+      </div>
+      <div class="hero-img">
+        <div class="hero-img-circle"></div>
+        <div class="ph-text">Main Image</div>
+        <div class="ph-text">Impactful image related to VEHA's work</div>
+      </div>
+    </div>
+
+    <!-- MISSION -->
+    <span class="slabel">Section 2 — Mission Snapshot</span>
+    <div class="mission">
+      <div class="mc"><div class="mc-icon"></div><div class="mc-title">Science-Led</div><div class="mc-body">Short concise paragraph about VEHA Foundation and credibility.</div></div>
+      <div class="mc"><div class="mc-icon"></div><div class="mc-title">Government-Aligned</div><div class="mc-body">Millertonesacd VEHA Foundation — highlight why VEHA is credible.</div></div>
+      <div class="mc"><div class="mc-icon"></div><div class="mc-title">Systems-Focused</div><div class="mc-body">Highlight why VEHA is credible and systems-focused at scale.</div></div>
+    </div>
+
+    <!-- SCALE OF PROBLEM -->
+    <span class="slabel">Section 3 — Scale of the Problem</span>
+    <div class="sec">
+      <div class="sec-h">The Scale of the Challenge</div>
+      <div class="sec-s">India carries the world's largest burden of hemoglobinopathies — yet most cases are preventable.</div>
+      <div class="charts-row">
+        <div class="cbox">
+          <div class="bars"><div class="bar" style="height:30px"></div><div class="bar" style="height:50px"></div><div class="bar" style="height:70px"></div><div class="bar" style="height:45px"></div><div class="bar" style="height:60px"></div></div>
+          <div class="bign-lbl">State-wise carrier prevalence</div>
+        </div>
+        <div class="cbox">
+          <div class="bignum">10,000+</div>
+          <div class="bign-lbl">Thalassemia major births per year in India</div>
+          <div style="width:40px;height:2px;background:#ddd;border-radius:1px;margin-top:4px"></div>
+          <div class="bign-lbl">Preventable through antenatal screening</div>
+        </div>
+        <div class="cbox">
+          <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="22" fill="none" stroke="#e0e0e0" stroke-width="7"/><circle cx="30" cy="30" r="22" fill="none" stroke="#bbb" stroke-width="7" stroke-dasharray="69 69" stroke-dashoffset="17"/></svg>
+          <div class="bign-lbl">~1 in 8 Indians is a carrier</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY IMPACT STATS -->
+    <span class="slabel">Section 4 — Key Impact Stats</span>
+    <div class="sec">
+      <div class="sec-h">Measurable Impact</div>
+      <div class="sec-s">Numbers that prove the model works — at scale, across states.</div>
+      <div class="metrics">
+        <div class="mcard"><div class="mnum">31+</div><div class="mlbl">Cities covered</div><div class="mline"><div class="mline-f" style="width:70%"></div></div></div>
+        <div class="mcard"><div class="mnum">46K+</div><div class="mlbl">Doctors in network</div><div class="mline"><div class="mline-f" style="width:88%"></div></div></div>
+        <div class="mcard"><div class="mnum">8</div><div class="mlbl">States engaged</div><div class="mline"><div class="mline-f" style="width:50%"></div></div></div>
+        <div class="mcard"><div class="mnum">80</div><div class="mlbl">Master trainers</div><div class="mline"><div class="mline-f" style="width:60%"></div></div></div>
+      </div>
+    </div>
+
+    <!-- PROJECT MUKTA -->
+    <span class="slabel">Section 5 — Project MUKTA</span>
+    <div class="sec">
+      <div class="sec-h">About Project MUKTA</div>
+      <div class="sec-s">Headline: Short overview of Project MUKTA and its national reach.</div>
+      <div class="mukta-grid">
+        <div>
+          <div class="mc-body" style="margin-bottom:10px;font-size:8px;color:#888;line-height:1.6">MUKTA partners with 46,000+ FOGSI-affiliated OBGYNs to screen pregnant women in the first trimester — identifying carrier couples before a severe birth occurs.</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:8px;color:#aaa;display:flex;gap:5px"><span>→</span><span>FOGSI partnership — 46,000+ doctors</span></div>
+            <div style="font-size:8px;color:#aaa;display:flex;gap:5px"><span>→</span><span>HPLC blood test — first trimester</span></div>
+            <div style="font-size:8px;color:#aaa;display:flex;gap:5px"><span>→</span><span>70–80 master trainers deployed</span></div>
+          </div>
+        </div>
+        <div class="flow-box">
+          <div class="flow-lbl">Screening Pathway</div>
+          <div class="flow-steps">
+            <div class="fnum">1</div><div class="farr">→</div><div class="fnum">2</div><div class="farr">→</div><div class="fnum">3</div><div class="farr">→</div><div class="fnum">4</div>
+          </div>
+          <div class="fstep-labels">
+            <div class="flbl">OBGYN visit</div><div class="flbl">HPLC test</div><div class="flbl">Partner screening</div><div class="flbl">Counselling</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;background:#f0f0f0;border-radius:2px;padding:8px 14px;text-align:center">
+        <div style="font-size:8px;color:#888;font-style:italic">Positive outcomes — highlight key results</div>
+      </div>
+    </div>
+
+    <!-- OUR PARTNERS -->
+    <span class="slabel">Section 6 — Our Partners</span>
+    <div class="sec">
+      <div class="sec-h">Our Partners</div>
+      <div class="sec-s">Use official logos of credible partners. Present as trusted and aligned.</div>
+      <div class="logos">
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:40px"></div><div class="ll" style="width:28px"></div></div></div>
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:36px"></div><div class="ll" style="width:24px"></div></div></div>
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:44px"></div><div class="ll" style="width:30px"></div></div></div>
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:38px"></div><div class="ll" style="width:26px"></div></div></div>
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:42px"></div><div class="ll" style="width:28px"></div></div></div>
+      </div>
+    </div>
+
+    <!-- FOGSI / CREDIBILITY -->
+    <span class="slabel">Section 7 — FOGSI Partnership & National Reach</span>
+    <div class="sec">
+      <div class="sec-h">FOGSI Partnership and National Reach</div>
+      <div class="sec-s">Credible facts about VEHA's reach through FOGSI. Use stats for credibility — e.g. "46,000+ OBGYNs nation-wide."</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:4px">
+        <div style="border:1.5px dashed #ccc;border-radius:2px;padding:10px;background:#f7f7f7;text-align:center"><div class="bignum" style="font-size:16px">46K+</div><div class="bign-lbl">OBGYNs via FOGSI</div></div>
+        <div style="border:1.5px dashed #ccc;border-radius:2px;padding:10px;background:#f7f7f7;text-align:center"><div class="bignum" style="font-size:16px">31+</div><div class="bign-lbl">Cities covered</div></div>
+        <div style="border:1.5px dashed #ccc;border-radius:2px;padding:10px;background:#f7f7f7;text-align:center"><div class="bignum" style="font-size:16px">2035</div><div class="bign-lbl">Zero new cases vision</div></div>
+      </div>
+      <div class="logos" style="margin-top:10px">
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:40px"></div><div class="ll" style="width:28px"></div></div></div>
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:36px"></div><div class="ll" style="width:24px"></div></div></div>
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:44px"></div><div class="ll" style="width:30px"></div></div></div>
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:38px"></div><div class="ll" style="width:26px"></div></div></div>
+        <div class="logo-box"><div class="logo-lines"><div class="ll" style="width:42px"></div><div class="ll" style="width:28px"></div></div></div>
+      </div>
+    </div>
+
+    <!-- KNOWLEDGE -->
+    <span class="slabel">Section 8 — Knowledge Leadership</span>
+    <div class="sec">
+      <div class="sec-h">Knowledge & Advocacy</div>
+      <div class="sec-s">Guidelines, policy briefs, and research from India's leading prevention programme.</div>
+      <div class="know-cards">
+        <div class="kc"><div class="kc-icon"></div><div class="kc-title">Clinical Guidelines</div><div class="kc-lines"><div class="kline" style="width:100%"></div><div class="kline" style="width:80%"></div><div class="kline" style="width:90%"></div></div></div>
+        <div class="kc"><div class="kc-icon"></div><div class="kc-title">Policy Briefs</div><div class="kc-lines"><div class="kline" style="width:100%"></div><div class="kline" style="width:70%"></div><div class="kline" style="width:85%"></div></div></div>
+        <div class="kc"><div class="kc-icon"></div><div class="kc-title">Training Materials</div><div class="kc-lines"><div class="kline" style="width:100%"></div><div class="kline" style="width:75%"></div><div class="kline" style="width:60%"></div></div></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <span class="slabel">Section 9 — CTA Band</span>
+    <div class="cta-sec">
+      <div class="cta-h">Partner with VEHA to Eliminate Hemoglobinopathies</div>
+      <div class="cta-sub">We work with government bodies, hospitals, clinicians, and funders who share our commitment to prevention at scale.</div>
+      <div class="cta-btns"><div class="btn-d">Collaborate With Us</div><div class="btn-o">Contact Our Team</div></div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="fc"><div class="fc-title">VEHA Foundation</div><div class="fc-links"><div class="fcl" style="width:80px"></div><div class="fcl" style="width:60px;margin-top:4px"></div><div class="fcl" style="width:70px;margin-top:4px"></div></div></div>
+      <div class="fc"><div class="fc-title">Our Work</div><div class="fc-links"><div class="fcl" style="width:60px"></div><div class="fcl" style="width:48px;margin-top:4px"></div></div></div>
+      <div class="fc"><div class="fc-title">Resources</div><div class="fc-links"><div class="fcl" style="width:64px"></div><div class="fcl" style="width:50px;margin-top:4px"></div></div></div>
+      <div class="fc"><div class="fc-title">Contact</div><div class="fc-links"><div class="fcl" style="width:58px"></div><div class="fcl" style="width:44px;margin-top:4px"></div></div></div>
+    </div>
+    <div class="footer-btm"><div class="fbtm-txt">© 2024 VEHA Foundation. Mumbai, India.</div><div class="soc"><div class="sc"></div><div class="sc"></div><div class="sc"></div></div></div>
+
+  </div>
+
+  <!-- ═══ ANNOTATIONS COLUMN ═══ -->
+  <div class="annotations">
+
+    <div style="height:48px"></div>
+
+    <!-- Hero annotation -->
+    <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:6px">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:28px"><div style="width:24px;border-top:1.5px dashed #bbb"></div></div>
+      <div class="ann" style="flex:1">
+        <div class="ann-title">Intro text about VEHA's Mission & Impact</div>
+        <div class="ann-item">1–2 lines summarising VEHA's focus</div>
+        <div class="ann-item">Lead into following metrics & points</div>
+        <div class="ann-item">Concise & impactful text</div>
+      </div>
+    </div>
+
+    <div style="height:10px"></div>
+
+    <!-- Mission annotation -->
+    <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:6px">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:20px"><div style="width:24px;border-top:1.5px dashed #bbb"></div></div>
+      <div class="ann" style="flex:1">
+        <div class="ann-title">Mission Pillars</div>
+        <div class="ann-item">3 core values — short, punchy labels</div>
+        <div class="ann-item">Each with a brief supporting sentence</div>
+        <div class="ann-item">Builds credibility and differentiation</div>
+      </div>
+    </div>
+
+    <div style="height:4px"></div>
+
+    <!-- Problem annotation -->
+    <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:6px">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:28px"><div style="width:24px;border-top:1.5px dashed #bbb"></div></div>
+      <div class="ann" style="flex:1">
+        <div class="ann-title">Scale of the Problem</div>
+        <div class="ann-item">Highlight key numbers that show urgency</div>
+        <div class="ann-item">Use concise short texts below each number</div>
+        <div class="ann-item">Keep it data-driven and factual</div>
+      </div>
+    </div>
+
+    <div style="height:4px"></div>
+
+    <!-- Impact Stats annotation -->
+    <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:6px">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:18px"><div style="width:24px;border-top:1.5px dashed #bbb"></div></div>
+      <div class="ann" style="flex:1">
+        <div class="ann-title">Key Impact Stats</div>
+        <div class="ann-item">Highlight key numbers showing VEHA's effectiveness</div>
+        <div class="ann-item">Use concise short texts below each number</div>
+        <div class="ann-item">Keep it data-driven and factual</div>
+      </div>
+    </div>
+
+    <div style="height:4px"></div>
+
+    <!-- MUKTA annotation -->
+    <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:6px">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:22px"><div style="width:24px;border-top:1.5px dashed #bbb"></div></div>
+      <div class="ann" style="flex:1">
+        <div class="ann-title">Project MUKTA Section</div>
+        <div class="ann-item">Headline: Project MUKTA</div>
+        <div class="ann-item">Short intro text about the core objective (1–2 lines)</div>
+        <div class="ann-item">Concise bullet points for process steps</div>
+      </div>
+    </div>
+
+    <div style="height:4px"></div>
+
+    <!-- Partners annotation -->
+    <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:6px">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:18px"><div style="width:24px;border-top:1.5px dashed #bbb"></div></div>
+      <div class="ann" style="flex:1">
+        <div class="ann-title">Partners Showcase</div>
+        <div class="ann-item">Headline: Our Partners</div>
+        <div class="ann-item">Use official logos of credible partners</div>
+        <div class="ann-item">Present as trusted and aligned</div>
+      </div>
+    </div>
+
+    <div style="height:4px"></div>
+
+    <!-- FOGSI annotation -->
+    <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:6px">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:20px"><div style="width:24px;border-top:1.5px dashed #bbb"></div></div>
+      <div class="ann" style="flex:1">
+        <div class="ann-title">Highlight VEHA's Credibility</div>
+        <div class="ann-item">Point out credible partnerships</div>
+        <div class="ann-item">Mention national level reach</div>
+        <div class="ann-item">Use stats — e.g. "46,000+ OBGYNs nation-wide"</div>
+      </div>
+    </div>
+
+    <div style="height:4px"></div>
+
+    <!-- Knowledge annotation -->
+    <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:6px">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:18px"><div style="width:24px;border-top:1.5px dashed #bbb"></div></div>
+      <div class="ann" style="flex:1">
+        <div class="ann-title">Knowledge Leadership</div>
+        <div class="ann-item">Position VEHA as a thought leader</div>
+        <div class="ann-item">Resources for clinicians and policymakers</div>
+        <div class="ann-item">Builds trust with technical audiences</div>
+      </div>
+    </div>
+
+    <div style="height:4px"></div>
+
+    <!-- CTA annotation -->
+    <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:6px">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:18px"><div style="width:24px;border-top:1.5px dashed #bbb"></div></div>
+      <div class="ann" style="flex:1">
+        <div class="ann-title">CTA — Collaborate / Partner</div>
+        <div class="ann-item">Strong action-oriented headline</div>
+        <div class="ann-item">Two clear CTAs — partner & contact</div>
+        <div class="ann-item">Converts every visit into an inquiry</div>
+      </div>
+    </div>
+
+  </div>
+</div>
